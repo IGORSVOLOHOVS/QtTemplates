@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Written on Thu Apr 10 10:26:30 2025 by Qt Creator 15.0.1-->
+<externaltool id="documentation">
+    <description>Create doxygen documentation</description>
+    <displayname>Documentation</displayname>
+    <category>MeExternalCpp</category>
+    <executable output="showinpane" error="showinpane" modifiesdocument="no">
+        <path>bash</path>
+        <arguments>/home/igors/Projects/QtTemplates/scripts/documentation.sh</arguments>
+        <workingdirectory>%{ActiveProject:BuildConfig:Path}</workingdirectory>
+    </executable>
+</externaltool>

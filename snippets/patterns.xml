@@ -1,0 +1,2552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippets>
+    <snippet group="C++" trigger="gof_singleton" id="GOF_Singleton" complement="Singleton design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+/**
+ * @class Singleton
+ * @brief Represents a Singleton design pattern ensuring only one instance exists.
+ * @details This class provides a static method to get the single instance.
+ * Copying, moving, and direct construction are prevented.
+ * Note: Implementation details are expected in a separate .cpp file.
+ */
+class $Singleton$ {
+public:
+    /**
+     * @brief Gets the single instance of the Singleton class.
+     * @return Reference to the single instance.
+     * @note Implementation typically uses a static local variable (Meyer's Singleton).
+     */
+    static $Singleton$& getInstance();
+
+    /**
+     * @brief Example method for the Singleton.
+     */
+    void doSomething(); // Declaration only
+
+private:
+    /**
+     * @brief Private constructor to prevent direct instantiation.
+     */
+    $Singleton$(); // Declaration only
+
+    /**
+     * @brief Defaulted virtual destructor.
+     */
+    ~$Singleton$() = default;
+
+    // Prevent copying
+    $Singleton$(const $Singleton$&) = delete;
+    $Singleton$& operator=(const $Singleton$&) = delete;
+
+    // Prevent moving
+    $Singleton$($Singleton$&&) = delete;
+    $Singleton$& operator=($Singleton$&&) = delete;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+// static $Singleton$& $Singleton$::getInstance() {
+//     static $Singleton$ instance;
+//     return instance;
+// }
+//
+// void $Singleton$::doSomething() {
+//     /*! @brief Implementation details needed. $$ */
+// }
+//
+// $Singleton$::$Singleton$() {
+//     /*! @brief Implementation details needed. $$ */
+// }
+
+$$
+/** @example Example usage
+ * @code
+ * int main() {
+ * $Singleton$& instance = $Singleton$::getInstance();
+ * instance.doSomething();
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_factory_method" id="GOF_FactoryMethod" complement="Factory Method design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+/// @brief Forward declaration for Product.
+class $Product$;
+
+/**
+ * @class Product
+ * @brief Defines the interface for objects created by the factory method.
+ */
+class $Product$ {
+public:
+    /**
+     * @brief Virtual destructor.
+     */
+    virtual ~$Product$() = default;
+
+    /**
+     * @brief Pure virtual method representing the product's operation.
+     */
+    virtual void use() = 0;
+};
+
+/**
+ * @class ConcreteProductA
+ * @brief Concrete implementation of the Product interface.
+ */
+class $ConcreteProductA$ : public $Product$ {
+public:
+    /**
+     * @brief Overridden operation for ConcreteProductA.
+     */
+    void use() override; // Declaration only
+};
+
+/**
+ * @class ConcreteProductB
+ * @brief Concrete implementation of the Product interface.
+ */
+class $ConcreteProductB$ : public $Product$ {
+public:
+    /**
+     * @brief Overridden operation for ConcreteProductB.
+     */
+    void use() override; // Declaration only
+};
+
+/**
+ * @class Creator
+ * @brief Declares the factory method, which returns an object of type Product.
+ * @details May also define a default implementation of the factory method.
+ */
+class $Creator$ {
+public:
+    /**
+     * @brief Virtual destructor.
+     */
+    virtual ~$Creator$() = default;
+
+    /**
+     * @brief The factory method. Subclasses override this to create specific products.
+     * @return Pointer to the created Product. Ownership might vary (raw pointer shown).
+     */
+    virtual $Product$* createProduct() = 0;
+
+    /**
+     * @brief An operation that uses the product created by the factory method.
+     */
+    void someOperation(); // Declaration only
+};
+
+/**
+ * @class ConcreteCreatorA
+ * @brief Overrides the factory method to return an instance of ConcreteProductA.
+ */
+class $ConcreteCreatorA$ : public $Creator$ {
+public:
+    /**
+     * @brief Factory method implementation for ConcreteProductA.
+     * @return Pointer to a new ConcreteProductA.
+     */
+    $Product$* createProduct() override; // Declaration only
+};
+
+/**
+ * @class ConcreteCreatorB
+ * @brief Overrides the factory method to return an instance of ConcreteProductB.
+ */
+class $ConcreteCreatorB$ : public $Creator$ {
+public:
+    /**
+     * @brief Factory method implementation for ConcreteProductB.
+     * @return Pointer to a new ConcreteProductB.
+     */
+    $Product$* createProduct() override; // Declaration only
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/**
+ * @fn void $ConcreteProductA$::use()
+ * @brief Implementation for ConcreteProductA's use method.
+ */
+void $ConcreteProductA$::use() /* override */ {
+    /*! @brief Implementation details needed. $$ */
+}
+
+/**
+ * @fn void $ConcreteProductB$::use()
+ * @brief Implementation for ConcreteProductB's use method.
+ */
+void $ConcreteProductB$::use() /* override */ {
+    /*! @brief Implementation details needed. $$ */
+}
+
+/**
+ * @fn void $Creator$::someOperation()
+ * @brief Implementation for Creator's someOperation method.
+ */
+void $Creator$::someOperation() {
+    /*! @brief Implementation details needed. (Original logic: createProduct, use, delete) $$ */
+     // $Product$* product = createProduct();
+     // if (product) {
+     //     product->use();
+     //     delete product; // Manage ownership carefully!
+     // }
+}
+
+/**
+ * @fn $Product$* $ConcreteCreatorA$::createProduct()
+ * @brief Implementation for ConcreteCreatorA's factory method.
+ */
+$Product$* $ConcreteCreatorA$::createProduct() /* override */ {
+    /*! @brief Implementation details needed. (Original logic: return new $ConcreteProductA$();) $$ */
+     return nullptr; // Placeholder
+}
+
+/**
+ * @fn $Product$* $ConcreteCreatorB$::createProduct()
+ * @brief Implementation for ConcreteCreatorB's factory method.
+ */
+$Product$* $ConcreteCreatorB$::createProduct() /* override */ {
+    /*! @brief Implementation details needed. (Original logic: return new $ConcreteProductB$();) $$ */
+     return nullptr; // Placeholder
+}
+
+/** @example Example usage
+ * @code
+ * int main() {
+ * // Consider using smart pointers (e.g., std::unique_ptr) for creators and products
+ * $Creator$* creatorA = new $ConcreteCreatorA$();
+ * creatorA->someOperation();
+ * delete creatorA;
+ *
+ * $Creator$* creatorB = new $ConcreteCreatorB$();
+ * creatorB->someOperation();
+ * delete creatorB;
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_abstract_factory" id="GOF_AbstractFactory" complement="Abstract Factory design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+/// @brief Forward declarations for abstract products.
+class $AbstractProductA$;
+class $AbstractProductB$;
+
+/**
+ * @class AbstractProductA
+ * @brief Interface for a family of product objects (Type A).
+ */
+class $AbstractProductA$ {
+public:
+    virtual ~$AbstractProductA$() = default;
+    /** @brief Operation specific to Product A. */
+    virtual void useA() = 0;
+};
+
+/**
+ * @class AbstractProductB
+ * @brief Interface for a family of product objects (Type B).
+ */
+class $AbstractProductB$ {
+public:
+    virtual ~$AbstractProductB$() = default;
+    /** @brief Operation specific to Product B. */
+    virtual void useB() = 0;
+};
+
+/** @class ConcreteProductA1
+ * @brief Concrete implementation of AbstractProductA (Variant 1). */
+class $ConcreteProductA1$ : public $AbstractProductA$ {
+public:
+    void useA() override; // Declaration only
+};
+
+/** @class ConcreteProductA2
+ * @brief Concrete implementation of AbstractProductA (Variant 2). */
+class $ConcreteProductA2$ : public $AbstractProductA$ {
+public:
+    void useA() override; // Declaration only
+};
+
+/** @class ConcreteProductB1
+ * @brief Concrete implementation of AbstractProductB (Variant 1). */
+class $ConcreteProductB1$ : public $AbstractProductB$ {
+public:
+    void useB() override; // Declaration only
+};
+
+/** @class ConcreteProductB2
+ * @brief Concrete implementation of AbstractProductB (Variant 2). */
+class $ConcreteProductB2$ : public $AbstractProductB$ {
+public:
+    void useB() override; // Declaration only
+};
+
+/**
+ * @class AbstractFactory
+ * @brief Interface for creating families of related or dependent objects.
+ */
+class $AbstractFactory$ {
+public:
+    virtual ~$AbstractFactory$() = default;
+    /** @brief Creates a Product A object. */
+    virtual $AbstractProductA$* createProductA() = 0;
+    /** @brief Creates a Product B object. */
+    virtual $AbstractProductB$* createProductB() = 0;
+};
+
+/**
+ * @class ConcreteFactory1
+ * @brief Implements the operations to create concrete product objects (Variant 1).
+ */
+class $ConcreteFactory1$ : public $AbstractFactory$ {
+public:
+    $AbstractProductA$* createProductA() override; // Declaration only
+    $AbstractProductB$* createProductB() override; // Declaration only
+};
+
+/**
+ * @class ConcreteFactory2
+ * @brief Implements the operations to create concrete product objects (Variant 2).
+ */
+class $ConcreteFactory2$ : public $AbstractFactory$ {
+public:
+    $AbstractProductA$* createProductA() override; // Declaration only
+    $AbstractProductB$* createProductB() override; // Declaration only
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $ConcreteProductA1$::useA() */
+void $ConcreteProductA1$::useA() /* override */ { /*! @brief Implementation details needed. $$ */ }
+/** @fn void $ConcreteProductA2$::useA() */
+void $ConcreteProductA2$::useA() /* override */ { /*! @brief Implementation details needed. $$ */ }
+/** @fn void $ConcreteProductB1$::useB() */
+void $ConcreteProductB1$::useB() /* override */ { /*! @brief Implementation details needed. $$ */ }
+/** @fn void $ConcreteProductB2$::useB() */
+void $ConcreteProductB2$::useB() /* override */ { /*! @brief Implementation details needed. $$ */ }
+
+/** @fn $AbstractProductA$* $ConcreteFactory1$::createProductA() */
+$AbstractProductA$* $ConcreteFactory1$::createProductA() /* override */ { /*! @brief Original: return new $ConcreteProductA1$(); $$ */ return nullptr; }
+/** @fn $AbstractProductB$* $ConcreteFactory1$::createProductB() */
+$AbstractProductB$* $ConcreteFactory1$::createProductB() /* override */ { /*! @brief Original: return new $ConcreteProductB1$(); $$ */ return nullptr; }
+/** @fn $AbstractProductA$* $ConcreteFactory2$::createProductA() */
+$AbstractProductA$* $ConcreteFactory2$::createProductA() /* override */ { /*! @brief Original: return new $ConcreteProductA2$(); $$ */ return nullptr; }
+/** @fn $AbstractProductB$* $ConcreteFactory2$::createProductB() */
+$AbstractProductB$* $ConcreteFactory2$::createProductB() /* override */ { /*! @brief Original: return new $ConcreteProductB2$(); $$ */ return nullptr; }
+
+/** @example Example usage
+ * @code
+ * #include <memory> // For std::unique_ptr
+ *
+ * int main() {
+ * // Using smart pointers is recommended
+ * std::unique_ptr<$AbstractFactory$> factory1 = std::make_unique<$ConcreteFactory1$>();
+ * std::unique_ptr<$AbstractProductA$> productA1 = factory1->createProductA();
+ * std::unique_ptr<$AbstractProductB$> productB1 = factory1->createProductB();
+ * if (productA1) productA1->useA();
+ * if (productB1) productB1->useB();
+ *
+ * std::unique_ptr<$AbstractFactory$> factory2 = std::make_unique<$ConcreteFactory2$>();
+ * std::unique_ptr<$AbstractProductA$> productA2 = factory2->createProductA();
+ * std::unique_ptr<$AbstractProductB$> productB2 = factory2->createProductB();
+ * if (productA2) productA2->useA();
+ * if (productB2) productB2->useB();
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_builder" id="GOF_Builder" complement="Builder design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <string> // Needed for std::string
+#include <memory> // Needed for std::unique_ptr
+
+/// @brief Forward declarations.
+class $Product$;
+class $Builder$;
+
+/**
+ * @class Product
+ * @brief Represents the complex object being built.
+ */
+class $Product$ {
+public:
+    $Product$();  // Declaration
+    ~$Product$(); // Declaration
+
+    /** @brief Sets Part A of the product. @param partA Value for Part A. */
+    void setPartA(const std::string& partA); // Declaration only
+    /** @brief Sets Part B of the product. @param partB Value for Part B. */
+    void setPartB(const std::string& partB); // Declaration only
+    /** @brief Lists the parts of the constructed product. */
+    void listParts() const; // Declaration only
+private:
+    /// @brief Part A of the product.
+    std::string partA_;
+    /// @brief Part B of the product.
+    std::string partB_;
+};
+
+/**
+ * @class Builder
+ * @brief Abstract interface for creating parts of a Product object.
+ */
+class $Builder$ {
+public:
+    virtual ~$Builder$() = default;
+    /** @brief Builds Part A of the product. */
+    virtual void buildPartA() = 0;
+    /** @brief Builds Part B of the product. */
+    virtual void buildPartB() = 0;
+    /** @brief Retrieves the constructed product.
+     * @return A unique pointer to the constructed Product. The builder might reset itself. */
+    virtual std::unique_ptr<$Product$> getProduct() = 0;
+};
+
+/**
+ * @class ConcreteBuilder
+ * @brief Constructs and assembles parts of the product by implementing the Builder interface.
+ */
+class $ConcreteBuilder$ : public $Builder$ {
+public:
+    $ConcreteBuilder$(); // Declaration only
+    ~$ConcreteBuilder$() override; // Declaration only
+
+    void buildPartA() override; // Declaration only
+    void buildPartB() override; // Declaration only
+    std::unique_ptr<$Product$> getProduct() override; // Declaration only
+private:
+    /// @brief The product being built.
+    std::unique_ptr<$Product$> product_;
+};
+
+/**
+ * @class Director
+ * @brief Constructs an object using the Builder interface.
+ */
+class $Director$ {
+public:
+    /** @brief Sets the builder to be used. @param builder Pointer to the builder instance. */
+    void setBuilder($Builder$* builder); // Declaration only
+    /** @brief Constructs the product using the current builder.
+     * @return A unique pointer to the fully constructed Product. */
+    std::unique_ptr<$Product$> construct(); // Declaration only
+private:
+    /// @brief Pointer to the builder instance used for construction.
+    $Builder$* builder_;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $Product$::setPartA(const std::string& partA) */
+void $Product$::setPartA(const std::string& partA) { /*! @brief Implementation needed. $$ */ }
+/** @fn void $Product$::setPartB(const std::string& partB) */
+void $Product$::setPartB(const std::string& partB) { /*! @brief Implementation needed. $$ */ }
+/** @fn void $Product$::listParts() const */
+void $Product$::listParts() const { /*! @brief Implementation needed. $$ */ }
+/** @fn $Product$::$Product$() */
+$Product$::$Product$() { /*! @brief Implementation needed. $$ */ }
+/** @fn $Product$::~$Product$() */
+$Product$::~$Product$() { /*! @brief Implementation needed. $$ */ }
+
+/** @fn void $ConcreteBuilder$::buildPartA() */
+void $ConcreteBuilder$::buildPartA() /* override */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteBuilder$::buildPartB() */
+void $ConcreteBuilder$::buildPartB() /* override */ { /*! @brief Implementation needed. $$ */ }
+/** @fn std::unique_ptr<$Product$> $ConcreteBuilder$::getProduct() */
+std::unique_ptr<$Product$> $ConcreteBuilder$::getProduct() /* override */ { /*! @brief Implementation needed. $$ */ return nullptr; }
+/** @fn $ConcreteBuilder$::$ConcreteBuilder$() */
+$ConcreteBuilder$::$ConcreteBuilder$() { /*! @brief Implementation needed. $$ */ }
+/** @fn $ConcreteBuilder$::~$ConcreteBuilder$() */
+$ConcreteBuilder$::~$ConcreteBuilder$() /* override */ { /*! @brief Implementation needed. $$ */ }
+
+/** @fn void $Director$::setBuilder($Builder$* builder) */
+void $Director$::setBuilder($Builder$* builder) { /*! @brief Implementation needed. $$ */ }
+/** @fn std::unique_ptr<$Product$> $Director$::construct() */
+std::unique_ptr<$Product$> $Director$::construct() { /*! @brief Implementation needed. $$ */ return nullptr; }
+
+
+/** @example Example usage
+ * @code
+ * int main() {
+ * $Director$ director;
+ * $ConcreteBuilder$ builder;
+ * director.setBuilder(&builder);
+ * std::unique_ptr<$Product$> product = director.construct();
+ * if (product) { product->listParts(); }
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_prototype" id="GOF_Prototype" complement="Prototype design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <string> // Needed for std::string
+#include <memory> // Needed for std::unique_ptr
+
+/// @brief Forward declaration.
+class $Prototype$;
+
+/**
+ * @class Prototype
+ * @brief Declares an interface for cloning itself.
+ */
+class $Prototype$ {
+public:
+    virtual ~$Prototype$() = default;
+    /** @brief Creates a clone of the object.
+     * @return A unique pointer to the new cloned object. */
+    virtual std::unique_ptr<$Prototype$> clone() const = 0;
+    /** @brief An example operation performed by the prototype. */
+    virtual void operation() = 0;
+};
+
+/**
+ * @class ConcretePrototypeA
+ * @brief Implements an operation for cloning itself.
+ */
+class $ConcretePrototypeA$ : public $Prototype$ {
+public:
+    /** @brief Constructor. @param value Initial value for the prototype. */
+    explicit $ConcretePrototypeA$(int value); // Declaration only
+    /** @brief Copy constructor (often needed for cloning). @param other Object to copy from. */
+    $ConcretePrototypeA$(const $ConcretePrototypeA$& other); // Declaration only
+
+    std::unique_ptr<$Prototype$> clone() const override; // Declaration only
+    void operation() override; // Declaration only
+private:
+    /// @brief Example member data.
+    int value_;
+};
+
+/**
+ * @class ConcretePrototypeB
+ * @brief Implements an operation for cloning itself.
+ */
+class $ConcretePrototypeB$ : public $Prototype$ {
+public:
+    /** @brief Constructor. @param label Initial label for the prototype. */
+    explicit $ConcretePrototypeB$(std::string label); // Declaration only
+     /** @brief Copy constructor (often needed for cloning). @param other Object to copy from. */
+    $ConcretePrototypeB$(const $ConcretePrototypeB$& other); // Declaration only
+
+    std::unique_ptr<$Prototype$> clone() const override; // Declaration only
+    void operation() override; // Declaration only
+private:
+     /// @brief Example member data.
+    std::string label_;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn $ConcretePrototypeA$::$ConcretePrototypeA$(int value) */
+$ConcretePrototypeA$::$ConcretePrototypeA$(int value) { /*! @brief Implementation needed. $$ */ }
+/** @fn $ConcretePrototypeA$::$ConcretePrototypeA$(const $ConcretePrototypeA$& other) */
+$ConcretePrototypeA$::$ConcretePrototypeA$(const $ConcretePrototypeA$& other) { /*! @brief Implementation needed. $$ */ }
+/** @fn std::unique_ptr<$Prototype$> $ConcretePrototypeA$::clone() const */
+std::unique_ptr<$Prototype$> $ConcretePrototypeA$::clone() const /* override */ { /*! @brief Implementation needed. $$ */ return nullptr; }
+/** @fn void $ConcretePrototypeA$::operation() */
+void $ConcretePrototypeA$::operation() /* override */ { /*! @brief Implementation needed. $$ */ }
+
+/** @fn $ConcretePrototypeB$::$ConcretePrototypeB$(std::string label) */
+$ConcretePrototypeB$::$ConcretePrototypeB$(std::string label) { /*! @brief Implementation needed. $$ */ }
+/** @fn $ConcretePrototypeB$::$ConcretePrototypeB$(const $ConcretePrototypeB$& other) */
+$ConcretePrototypeB$::$ConcretePrototypeB$(const $ConcretePrototypeB$& other) { /*! @brief Implementation needed. $$ */ }
+/** @fn std::unique_ptr<$Prototype$> $ConcretePrototypeB$::clone() const */
+std::unique_ptr<$Prototype$> $ConcretePrototypeB$::clone() const /* override */ { /*! @brief Implementation needed. $$ */ return nullptr; }
+/** @fn void $ConcretePrototypeB$::operation() */
+void $ConcretePrototypeB$::operation() /* override */ { /*! @brief Implementation needed. $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * int main() {
+ * auto protoA = std::make_unique<$ConcretePrototypeA$>(10);
+ * auto cloneA = protoA->clone();
+ * if(cloneA) cloneA->operation();
+ *
+ * auto protoB = std::make_unique<$ConcretePrototypeB$>("Prototype B");
+ * auto cloneB = protoB->clone();
+ * if(cloneB) cloneB->operation();
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_adapter" id="GOF_Adapter" complement="Adapter design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <memory> // For smart pointers if used in declarations
+
+/// @brief Forward declarations.
+class $Target$;
+class $Adaptee$;
+
+/**
+ * @class Target
+ * @brief Defines the domain-specific interface that Client uses.
+ */
+class $Target$ {
+public:
+    virtual ~$Target$() = default;
+    /** @brief The request method expected by the client. */
+    virtual void request() = 0;
+};
+
+/**
+ * @class Adaptee
+ * @brief Defines an existing interface that needs adapting.
+ */
+class $Adaptee$ {
+public:
+    /** @brief The specific request method of the Adaptee. */
+    void specificRequest(); // Declaration only
+};
+
+/**
+ * @class Adapter
+ * @brief Adapts the interface of Adaptee to the Target interface (Object Adapter).
+ */
+class $Adapter$ : public $Target$ {
+public:
+    /** @brief Constructor taking a pointer to the Adaptee.
+     * @param adaptee Pointer to the Adaptee instance to adapt. */
+    explicit $Adapter$($Adaptee$* adaptee); // Declaration only (raw pointer)
+    // Or: explicit $Adapter$(std::shared_ptr<$Adaptee$> adaptee); // (smart pointer)
+
+    /** @brief Implements the Target interface by calling the Adaptee's method. */
+    void request() override; // Declaration only
+private:
+    /// @brief Pointer to the Adaptee instance.
+    $Adaptee$* adaptee_; // (raw pointer)
+    // Or: std::shared_ptr<$Adaptee$> adaptee_; // (smart pointer)
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $Adaptee$::specificRequest() */
+void $Adaptee$::specificRequest() { /*! @brief Implementation needed. $$ */ }
+
+/** @fn $Adapter$::$Adapter$($Adaptee$* adaptee) */
+$Adapter$::$Adapter$($Adaptee$* adaptee) /* : adaptee_(adaptee) */ { /*! @brief Implementation needed. $$ */ }
+// Or: $Adapter$::$Adapter$(std::shared_ptr<$Adaptee$> adaptee) : adaptee_(adaptee) { /* $$ */ }
+
+/** @fn void $Adapter$::request() */
+void $Adapter$::request() /* override */ { /*! @brief Implementation needed. (Original: adaptee_->specificRequest();) $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ * #include <memory>   // For std::unique_ptr
+ *
+ * int main() {
+ * // Using raw pointer for Adaptee (needs manual deletion)
+ * $Adaptee$* rawAdaptee = new $Adaptee$();
+ * std::unique_ptr<$Target$> target = std::make_unique<$Adapter$>(rawAdaptee);
+ * target->request();
+ * delete rawAdaptee; // Manual deletion needed
+ *
+ * // Using shared_ptr for Adaptee (automatic management if Adapter also holds shared_ptr)
+ * // auto sharedAdaptee = std::make_shared<$Adaptee$>();
+ * // std::unique_ptr<$Target$> target2 = std::make_unique<$Adapter$>(sharedAdaptee);
+ * // target2->request();
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_bridge" id="GOF_Bridge" complement="Bridge design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <memory> // Needed for std::unique_ptr
+
+/// @brief Forward declarations.
+class $Implementor$;
+class $Abstraction$;
+
+/**
+ * @class Implementor
+ * @brief Defines the interface for implementation classes.
+ */
+class $Implementor$ {
+public:
+    virtual ~$Implementor$() = default;
+    /** @brief The implementation-specific operation. */
+    virtual void operationImp() = 0;
+};
+
+/** @class ConcreteImplementorA
+ * @brief Concrete implementation A of the Implementor interface. */
+class $ConcreteImplementorA$ : public $Implementor$ {
+public:
+    void operationImp() override; // Declaration only
+};
+
+/** @class ConcreteImplementorB
+ * @brief Concrete implementation B of the Implementor interface. */
+class $ConcreteImplementorB$ : public $Implementor$ {
+public:
+    void operationImp() override; // Declaration only
+};
+
+/**
+ * @class Abstraction
+ * @brief Defines the abstraction's interface and maintains a reference to an Implementor.
+ */
+class $Abstraction$ {
+public:
+    /** @brief Constructor taking ownership of the Implementor.
+     * @param implementor A unique pointer to an Implementor instance. */
+    explicit $Abstraction$(std::unique_ptr<$Implementor$> implementor); // Declaration only
+    // Or: explicit $Abstraction$($Implementor$* implementor); // Non-owning
+
+    virtual ~$Abstraction$() = default;
+    /** @brief High-level operation, delegates to the Implementor. */
+    virtual void operation(); // Declaration only
+protected:
+    /// @brief Pointer to the Implementor.
+    std::unique_ptr<$Implementor$> implementor_; // Owns the implementor
+    // Or: $Implementor$* implementor_; // Non-owning
+};
+
+/**
+ * @class RefinedAbstraction
+ * @brief Extends the interface defined by Abstraction.
+ */
+class $RefinedAbstraction$ : public $Abstraction$ {
+public:
+    /** @brief Constructor.
+     * @param implementor A unique pointer to an Implementor instance. */
+    explicit $RefinedAbstraction$(std::unique_ptr<$Implementor$> implementor); // Declaration only
+    // Or: explicit $RefinedAbstraction$($Implementor$* implementor); // Non-owning
+
+    /** @brief Refined operation. */
+    void operation() override; // Declaration only
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $ConcreteImplementorA$::operationImp() */
+void $ConcreteImplementorA$::operationImp() /* override */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteImplementorB$::operationImp() */
+void $ConcreteImplementorB$::operationImp() /* override */ { /*! @brief Implementation needed. $$ */ }
+
+/** @fn $Abstraction$::$Abstraction$(std::unique_ptr<$Implementor$> implementor) */
+$Abstraction$::$Abstraction$(std::unique_ptr<$Implementor$> implementor) /* : implementor_(std::move(implementor)) */ { /*! @brief Implementation needed. $$ */ }
+// Or: $Abstraction$::$Abstraction$($Implementor$* implementor) : implementor_(implementor) { /* $$ */ }
+/** @fn void $Abstraction$::operation() */
+virtual void $Abstraction$::operation() { /*! @brief Implementation needed. (Original: implementor_->operationImp();) $$ */ }
+
+/** @fn $RefinedAbstraction$::$RefinedAbstraction$(std::unique_ptr<$Implementor$> implementor) */
+$RefinedAbstraction$::$RefinedAbstraction$(std::unique_ptr<$Implementor$> implementor) /* : Abstraction(std::move(implementor)) */ { /*! @brief Implementation needed. $$ */ }
+// Or: $RefinedAbstraction$::$RefinedAbstraction$($Implementor$* implementor) : Abstraction(implementor) { /* $$ */ }
+/** @fn void $RefinedAbstraction$::operation() */
+void $RefinedAbstraction$::operation() /* override */ { /*! @brief Implementation needed. (Original: Abstraction::operation(); /* + refined logic *\/) $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * auto implA = std::make_unique<$ConcreteImplementorA$>();
+ * auto absA = std::make_unique<$Abstraction$>(std::move(implA));
+ * absA->operation();
+ *
+ * auto implB = std::make_unique<$ConcreteImplementorB$>();
+ * auto absB = std::make_unique<$RefinedAbstraction$>(std::move(implB));
+ * absB->operation();
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_composite" id="GOF_Composite" complement="Composite design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <list>   // Needed for std::list
+#include <memory> // Needed for std::shared_ptr
+#include <vector> // Alternative container
+
+/// @brief Forward declaration.
+class $Component$;
+
+/**
+ * @class Component
+ * @brief Declares the interface for objects in the composition.
+ * @details Implements default behavior for the interface common to all classes, as appropriate.
+ */
+class $Component$ {
+public:
+    virtual ~$Component$() = default;
+    /** @brief Operation performed by the component. */
+    virtual void operation() = 0;
+
+    /** @brief Adds a component to the children (optional, may do nothing in Leaf).
+     * @param component The component to add. */
+    virtual void add(std::shared_ptr<$Component$> component); // Declaration only
+
+    /** @brief Removes a component from the children (optional, may do nothing in Leaf).
+     * @param component The component to remove. */
+    virtual void remove(std::shared_ptr<$Component$> component); // Declaration only
+
+    // virtual std::shared_ptr<$Component$> getChild(int i); // Optional child access
+    // virtual $Component$* getParent(); // Optional parent access
+};
+
+/**
+ * @class Leaf
+ * @brief Represents leaf objects in the composition. A leaf has no children.
+ */
+class $Leaf$ : public $Component$ {
+public:
+    void operation() override; // Declaration only
+    // Override add/remove to explicitly do nothing or throw, if base implementation is not suitable.
+    // void add(std::shared_ptr<$Component$> component) override;
+    // void remove(std::shared_ptr<$Component$> component) override;
+};
+
+/**
+ * @class Composite
+ * @brief Defines behavior for components having children. Stores child components.
+ */
+class $Composite$ : public $Component$ {
+public:
+    void operation() override; // Declaration only
+    void add(std::shared_ptr<$Component$> component) override; // Declaration only
+    void remove(std::shared_ptr<$Component$> component) override; // Declaration only
+private:
+    /// @brief List of child components.
+    std::list<std::shared_ptr<$Component$>> children_;
+    // Or: std::vector<std::shared_ptr<$Component$>> children_;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $Component$::add(std::shared_ptr<$Component$> component) */
+void $Component$::add(std::shared_ptr<$Component$> component) { /*! @brief Default implementation (optional, often empty). $$ */ }
+/** @fn void $Component$::remove(std::shared_ptr<$Component$> component) */
+void $Component$::remove(std::shared_ptr<$Component$> component) { /*! @brief Default implementation (optional, often empty). $$ */ }
+
+/** @fn void $Leaf$::operation() */
+void $Leaf$::operation() /* override */ { /*! @brief Implementation needed. $$ */ }
+// void $Leaf$::add(std::shared_ptr<$Component$> c) override { /* Throw or no-op */ }
+// void $Leaf$::remove(std::shared_ptr<$Component$> c) override { /* Throw or no-op */ }
+
+/** @fn void $Composite$::operation() */
+void $Composite$::operation() /* override */ { /*! @brief Implementation needed. (Original: Iterate children_ and call operation). $$ */ }
+/** @fn void $Composite$::add(std::shared_ptr<$Component$> component) */
+void $Composite$::add(std::shared_ptr<$Component$> component) /* override */ { /*! @brief Implementation needed. (Original: children_.push_back(component);). $$ */ }
+/** @fn void $Composite$::remove(std::shared_ptr<$Component$> component) */
+void $Composite$::remove(std::shared_ptr<$Component$> component) /* override */ { /*! @brief Implementation needed. (Original: children_.remove(component);). $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * auto composite = std::make_shared<$Composite$>();
+ * auto leaf1 = std::make_shared<$Leaf$>();
+ * auto leaf2 = std::make_shared<$Leaf$>();
+ * composite->add(leaf1);
+ * composite->add(leaf2);
+ * composite->operation();
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_decorator" id="GOF_Decorator" complement="Decorator design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <memory> // Needed for std::unique_ptr or shared_ptr
+
+/// @brief Forward declarations.
+class $Component$;
+
+/**
+ * @class Component
+ * @brief Defines the interface for objects that can have responsibilities added dynamically.
+ */
+class $Component$ {
+public:
+    virtual ~$Component$() = default;
+    /** @brief The core operation. */
+    virtual void operation() = 0;
+};
+
+/**
+ * @class ConcreteComponent
+ * @brief Defines an object to which additional responsibilities can be attached.
+ */
+class $ConcreteComponent$ : public $Component$ {
+public:
+    void operation() override; // Declaration only
+};
+
+/**
+ * @class Decorator
+ * @brief Maintains a reference to a Component object and defines an interface
+ * that conforms to Component's interface.
+ */
+class $Decorator$ : public $Component$ {
+public:
+    /** @brief Constructor taking ownership of the component to decorate.
+     * @param component The component to wrap. */
+    explicit $Decorator$(std::unique_ptr<$Component$> component); // Takes ownership
+    // Or: explicit $Decorator$($Component$* component); // Non-owning
+    // Or: explicit $Decorator$(std::shared_ptr<$Component$> component); // Shared ownership
+
+    /** @brief Default implementation forwards the request to the wrapped component. */
+    void operation() override; // Declaration only (often delegates)
+protected:
+    /// @brief The wrapped component.
+    std::unique_ptr<$Component$> component_;
+    // Or: $Component$* component_;
+    // Or: std::shared_ptr<$Component$> component_;
+};
+
+/**
+ * @class ConcreteDecoratorA
+ * @brief Adds responsibilities to the component.
+ */
+class $ConcreteDecoratorA$ : public $Decorator$ {
+public:
+    /** @brief Constructor. @param component Component to decorate. */
+    explicit $ConcreteDecoratorA$(std::unique_ptr<$Component$> component); // Match base constructor
+    // Or: explicit $ConcreteDecoratorA$($Component$* component);
+    // Or: explicit $ConcreteDecoratorA$(std::shared_ptr<$Component$> component);
+
+    /** @brief Adds behavior before/after calling the wrapped component's operation. */
+    void operation() override; // Declaration only
+};
+
+/**
+ * @class ConcreteDecoratorB
+ * @brief Adds other responsibilities to the component.
+ */
+class $ConcreteDecoratorB$ : public $Decorator$ {
+public:
+    /** @brief Constructor. @param component Component to decorate. */
+    explicit $ConcreteDecoratorB$(std::unique_ptr<$Component$> component); // Match base constructor
+    // Or: explicit $ConcreteDecoratorB$($Component$* component);
+    // Or: explicit $ConcreteDecoratorB$(std::shared_ptr<$Component$> component);
+
+    /** @brief Adds different behavior before/after the wrapped operation. */
+    void operation() override; // Declaration only
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $ConcreteComponent$::operation() */
+void $ConcreteComponent$::operation() /* override */ { /*! @brief Implementation needed. $$ */ }
+
+/** @fn $Decorator$::$Decorator$(std::unique_ptr<$Component$> component) */
+$Decorator$::$Decorator$(std::unique_ptr<$Component$> component) /* : component_(std::move(component)) */ { /*! @brief Implementation needed. $$ */ }
+// ... other constructor implementations ...
+/** @fn void $Decorator$::operation() */
+void $Decorator$::operation() /* override */ { /*! @brief Implementation needed. (Original: if(component_) component_->operation();) $$ */ }
+
+/** @fn $ConcreteDecoratorA$::$ConcreteDecoratorA$(...) */
+$ConcreteDecoratorA$::$ConcreteDecoratorA$(std::unique_ptr<$Component$> component) /* : Decorator(std::move(component)) */ { /*! @brief Implementation needed. $$ */ }
+// ... other constructor implementations ...
+/** @fn void $ConcreteDecoratorA$::operation() */
+void $ConcreteDecoratorA$::operation() /* override */ { /*! @brief Implementation needed. (Original: Decorator::operation(); /* + added behavior *\/) $$ */ }
+
+/** @fn $ConcreteDecoratorB$::$ConcreteDecoratorB$(...) */
+$ConcreteDecoratorB$::$ConcreteDecoratorB$(std::unique_ptr<$Component$> component) /* : Decorator(std::move(component)) */ { /*! @brief Implementation needed. $$ */ }
+// ... other constructor implementations ...
+/** @fn void $ConcreteDecoratorB$::operation() */
+void $ConcreteDecoratorB$::operation() /* override */ { /*! @brief Implementation needed. (Original: /* added behavior before *\/ Decorator::operation(); /* + added behavior after *\/) $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * auto component = std::make_unique<$ConcreteComponent$>();
+ * auto decoratorA = std::make_unique<$ConcreteDecoratorA$>(std::move(component));
+ * auto decoratorB = std::make_unique<$ConcreteDecoratorB$>(std::move(decoratorA));
+ * decoratorB->operation();
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_facade" id="GOF_Facade" complement="Facade design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <memory> // For smart pointers if needed
+
+/**
+ * @class SubsystemA
+ * @brief Part of the complex subsystem.
+ */
+class $SubsystemA$ {
+public:
+    /** @brief Operation specific to Subsystem A. */
+    void operationA(); // Declaration only
+};
+
+/**
+ * @class SubsystemB
+ * @brief Part of the complex subsystem.
+ */
+class $SubsystemB$ {
+public:
+    /** @brief Operation specific to Subsystem B. */
+    void operationB(); // Declaration only
+};
+
+/**
+ * @class SubsystemC
+ * @brief Part of the complex subsystem.
+ */
+class $SubsystemC$ {
+public:
+    /** @brief Operation specific to Subsystem C. */
+    void operationC(); // Declaration only
+};
+
+/**
+ * @class Facade
+ * @brief Provides a simplified interface to a complex subsystem.
+ */
+class $Facade$ {
+public:
+    $Facade$(); // Declaration only
+    ~$Facade$(); // Declaration only
+
+    /** @brief Performs a high-level operation using the subsystem components. */
+    void operation(); // Declaration only
+private:
+    /// @brief Instance of Subsystem A.
+    $SubsystemA$ subsystemA_;
+    /// @brief Instance of Subsystem B.
+    $SubsystemB$ subsystemB_;
+    /// @brief Instance of Subsystem C.
+    $SubsystemC$ subsystemC_;
+    // Or use pointers/smart pointers:
+    // std::unique_ptr<$SubsystemA$> subsystemA_;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $SubsystemA$::operationA() */
+void $SubsystemA$::operationA() { /*! @brief Implementation needed. $$ */ }
+/** @fn void $SubsystemB$::operationB() */
+void $SubsystemB$::operationB() { /*! @brief Implementation needed. $$ */ }
+/** @fn void $SubsystemC$::operationC() */
+void $SubsystemC$::operationC() { /*! @brief Implementation needed. $$ */ }
+
+/** @fn $Facade$::$Facade$() */
+$Facade$::$Facade$() { /*! @brief Implementation needed (e.g., initialize subsystems if using pointers). $$ */ }
+/** @fn $Facade$::~$Facade$() */
+$Facade$::~$Facade$() { /*! @brief Implementation needed (if managing resources). $$ */ }
+/** @fn void $Facade$::operation() */
+void $Facade$::operation() { /*! @brief Implementation needed (Original: call subsystemA/B/C operations). $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * $Facade$ facade;
+ * facade.operation();
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_flyweight" id="GOF_Flyweight" complement="Flyweight design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <string> // Needed for std::string
+#include <map>    // Needed for std::map
+#include <memory> // Needed for std::shared_ptr
+
+/// @brief Forward declarations.
+class $Flyweight$;
+
+/**
+ * @class Flyweight
+ * @brief Declares an interface through which flyweights can receive
+ * and act on extrinsic state.
+ */
+class $Flyweight$ {
+public:
+    virtual ~$Flyweight$() = default;
+    /** @brief Operation using both intrinsic (stored) and extrinsic (passed) state.
+     * @param extrinsicState The state passed to the flyweight method. */
+    virtual void operation(const std::string& extrinsicState) = 0;
+};
+
+/**
+ * @class ConcreteFlyweight
+ * @brief Implements the Flyweight interface and adds storage for intrinsic state.
+ */
+class $ConcreteFlyweight$ : public $Flyweight$ {
+public:
+    /** @brief Constructor. @param intrinsicState The intrinsic state to store. */
+    explicit $ConcreteFlyweight$(const std::string& intrinsicState); // Declaration only
+
+    /** @brief Implements the operation using intrinsic and extrinsic state.
+     * @param extrinsicState The extrinsic state passed to the method. */
+    void operation(const std::string& extrinsicState) override; // Declaration only
+private:
+    /// @brief The intrinsic state stored within the Flyweight.
+    std::string intrinsicState_;
+};
+
+/**
+ * @class FlyweightFactory
+ * @brief Creates and manages flyweight objects. Ensures flyweights are shared.
+ */
+class $FlyweightFactory$ {
+public:
+    /** @brief Gets a flyweight associated with a key. Creates it if it doesn't exist.
+     * @param key The key identifying the desired flyweight (often the intrinsic state).
+     * @return A shared pointer to the Flyweight object. */
+    std::shared_ptr<$Flyweight$> getFlyweight(const std::string& key); // Declaration only
+private:
+    /// @brief Pool storing the shared flyweight objects.
+    std::map<std::string, std::shared_ptr<$Flyweight$>> flyweights_;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn $ConcreteFlyweight$::$ConcreteFlyweight$(const std::string& intrinsicState) */
+$ConcreteFlyweight$::$ConcreteFlyweight$(const std::string& intrinsicState) /* : intrinsicState_(intrinsicState) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteFlyweight$::operation(const std::string& extrinsicState) */
+void $ConcreteFlyweight$::operation(const std::string& extrinsicState) /* override */ { /*! @brief Implementation needed. $$ */ }
+
+/** @fn std::shared_ptr<$Flyweight$> $FlyweightFactory$::getFlyweight(const std::string& key) */
+std::shared_ptr<$Flyweight$> $FlyweightFactory$::getFlyweight(const std::string& key) { /*! @brief Implementation needed. (Original: Check map, create if absent, return shared_ptr). $$ */ return nullptr; }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * $FlyweightFactory$ factory;
+ * auto flyweight1 = factory.getFlyweight("state1");
+ * if (flyweight1) flyweight1->operation("extrinsic1");
+ *
+ * auto flyweight2 = factory.getFlyweight("state1"); // Should return the same object as flyweight1
+ * if (flyweight2) flyweight2->operation("extrinsic2");
+ *
+ * auto flyweight3 = factory.getFlyweight("state2");
+ * if (flyweight3) flyweight3->operation("extrinsic3");
+ *
+ * // std::cout << "Flyweight1 and Flyweight2 point to the same object: "
+ * //           << (flyweight1 == flyweight2 ? "Yes" : "No") << std::endl;
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_proxy" id="GOF_Proxy" complement="Proxy design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <memory> // Needed for std::unique_ptr
+
+/// @brief Forward declarations.
+class $Subject$;
+class $RealSubject$;
+
+/**
+ * @class Subject
+ * @brief Defines the common interface for RealSubject and Proxy.
+ */
+class $Subject$ {
+public:
+    virtual ~$Subject$() = default;
+    /** @brief The common operation interface. */
+    virtual void request() = 0;
+};
+
+/**
+ * @class RealSubject
+ * @brief Defines the real object that the proxy represents.
+ */
+class $RealSubject$ : public $Subject$ {
+public:
+    /** @brief Handles the actual request. */
+    void request() override; // Declaration only
+};
+
+/**
+ * @class Proxy
+ * @brief Maintains a reference that lets the proxy access the real subject.
+ * @details Controls access to the real subject and may be responsible for its creation and deletion.
+ */
+class $Proxy$ : public $Subject$ {
+public:
+    $Proxy$(); // Declaration only
+    ~$Proxy$() override; // Declaration only
+
+    /** @brief Controls access and delegates the request to the RealSubject. */
+    void request() override; // Declaration only
+private:
+    /// @brief Pointer to the RealSubject. Lazy initialization is common.
+    std::unique_ptr<$RealSubject$> realSubject_;
+    // Or: $RealSubject$* realSubject_ = nullptr;
+
+    /** @brief Helper to check access or perform other pre-request actions. */
+    bool checkAccess(); // Example helper declaration
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $RealSubject$::request() */
+void $RealSubject$::request() /* override */ { /*! @brief Implementation needed. $$ */ }
+
+/** @fn $Proxy$::$Proxy$() */
+$Proxy$::$Proxy$() { /*! @brief Implementation needed. $$ */ }
+/** @fn $Proxy$::~$Proxy$() */
+$Proxy$::~$Proxy$() /* override */ { /*! @brief Implementation needed (unique_ptr handles deletion). $$ */ }
+/** @fn void $Proxy$::request() */
+void $Proxy$::request() /* override */ { /*! @brief Implementation needed. (Original: Check access, lazy-init realSubject_, realSubject_->request()). $$ */ }
+/** @fn bool $Proxy$::checkAccess() */
+bool $Proxy$::checkAccess() { /*! @brief Implementation needed. $$ */ return true; }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * auto proxy = std::make_unique<$Proxy$>();
+ * // The RealSubject might be created only upon the first request.
+ * proxy->request();
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_chain_of_responsibility" id="GOF_ChainOfResponsibility" complement="Chain of Responsibility design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+/// @brief Forward declaration.
+class $Handler$;
+
+/**
+ * @class Handler
+ * @brief Defines an interface for handling requests and optionally implements the successor link.
+ */
+class $Handler$ {
+public:
+    virtual ~$Handler$() = default;
+    /** @brief Sets the next handler in the chain.
+     * @param nextHandler Pointer to the next handler. */
+    virtual void setNext($Handler$* nextHandler); // Declaration only
+
+    /** @brief Handles the request or passes it to the successor.
+     * @param request The request to handle (type might vary, int used as example). */
+    virtual void handleRequest(int request); // Declaration only
+protected:
+    /// @brief Pointer to the next handler in the chain.
+    $Handler$* nextHandler_ = nullptr;
+};
+
+/**
+ * @class ConcreteHandlerA
+ * @brief Handles requests it is responsible for, otherwise passes to successor.
+ */
+class $ConcreteHandlerA$ : public $Handler$ {
+public:
+    /** @brief Handles the request if applicable, otherwise forwards it.
+     * @param request The request to handle. */
+    void handleRequest(int request) override; // Declaration only
+};
+
+/**
+ * @class ConcreteHandlerB
+ * @brief Handles requests it is responsible for, otherwise passes to successor.
+ */
+class $ConcreteHandlerB$ : public $Handler$ {
+public:
+    /** @brief Handles the request if applicable, otherwise forwards it.
+     * @param request The request to handle. */
+    void handleRequest(int request) override; // Declaration only
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $Handler$::setNext($Handler$* nextHandler) */
+void $Handler$::setNext($Handler$* nextHandler) { /*! @brief Implementation needed. (Original: this->nextHandler_ = nextHandler;) $$ */ }
+/** @fn void $Handler$::handleRequest(int request) */
+void $Handler$::handleRequest(int request) { /*! @brief Implementation needed. (Original: if(nextHandler_) nextHandler_->handleRequest(request);) $$ */ }
+
+/** @fn void $ConcreteHandlerA$::handleRequest(int request) */
+void $ConcreteHandlerA$::handleRequest(int request) /* override */ { /*! @brief Implementation needed. (Original: Check condition, handle or call Handler::handleRequest(request);) $$ */ }
+/** @fn void $ConcreteHandlerB$::handleRequest(int request) */
+void $ConcreteHandlerB$::handleRequest(int request) /* override */ { /*! @brief Implementation needed. (Original: Check condition, handle or call Handler::handleRequest(request);) $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * $ConcreteHandlerA$ handlerA; // Handlers can be stack allocated if lifetime permits
+ * $ConcreteHandlerB$ handlerB;
+ * handlerA.setNext(&handlerB); // Build the chain: A -> B
+ *
+ * // std::cout << "Sending request 5:" << std::endl;
+ * handlerA.handleRequest(5);  // Handled by A
+ * // std::cout << "Sending request 15:" << std::endl;
+ * handlerA.handleRequest(15); // Handled by B
+ * // std::cout << "Sending request 25:" << std::endl;
+ * handlerA.handleRequest(25); // Not handled
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_command" id="GOF_Command" complement="Command design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+/// @brief Forward declarations.
+class $Command$;
+class $Receiver$;
+
+/**
+ * @class Command
+ * @brief Declares an interface for executing an operation.
+ */
+class $Command$ {
+public:
+    virtual ~Command$() = default;
+    /** @brief Executes the command. */
+    virtual void execute() = 0;
+};
+
+/**
+ * @class Receiver
+ * @brief Knows how to perform the operations associated with carrying out a request.
+ */
+class $Receiver$ {
+public:
+    /** @brief The action performed by the receiver. */
+    void action(); // Declaration only
+};
+
+/**
+ * @class ConcreteCommand
+ * @brief Defines a binding between a Receiver object and an action.
+ * @details Implements Execute by invoking the corresponding operation(s) on Receiver.
+ */
+class $ConcreteCommand$ : public $Command$ {
+public:
+    /** @brief Constructor binding the command to a receiver.
+     * @param receiver Pointer to the receiver instance. */
+    explicit $ConcreteCommand$($Receiver$* receiver); // Declaration only
+
+    /** @brief Executes the command by calling the receiver's action. */
+    void execute() override; // Declaration only
+private:
+    /// @brief Pointer to the receiver.
+    $Receiver$* receiver_;
+};
+
+/**
+ * @class Invoker
+ * @brief Asks the command to carry out the request.
+ */
+class $Invoker$ {
+public:
+    /** @brief Sets the command to be executed.
+     * @param command Pointer to the command object. */
+    void setCommand($Command$* command); // Declaration only
+
+    /** @brief Executes the stored command. */
+    void executeCommand(); // Declaration only
+private:
+    /// @brief Pointer to the command object.
+    $Command$* command_;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $Receiver$::action() */
+void $Receiver$::action() { /*! @brief Implementation needed. $$ */ }
+
+/** @fn $ConcreteCommand$::$ConcreteCommand$($Receiver$* receiver) */
+$ConcreteCommand$::$ConcreteCommand$($Receiver$* receiver) /* : receiver_(receiver) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteCommand$::execute() */
+void $ConcreteCommand$::execute() /* override */ { /*! @brief Implementation needed. (Original: if(receiver_) receiver_->action();) $$ */ }
+
+/** @fn void $Invoker$::setCommand($Command$* command) */
+void $Invoker$::setCommand($Command$* command) { /*! @brief Implementation needed. (Original: this->command_ = command;) $$ */ }
+/** @fn void $Invoker$::executeCommand() */
+void $Invoker$::executeCommand() { /*! @brief Implementation needed. (Original: if(command_) command_->execute();) $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ * #include <memory>   // For std::unique_ptr if needed
+ *
+ * int main() {
+ * $Receiver$ receiver; // Receiver can be stack allocated
+ * $ConcreteCommand$ command(&receiver); // Command holds non-owning pointer
+ * $Invoker$ invoker;
+ *
+ * invoker.setCommand(&command);
+ * invoker.executeCommand();
+ *
+ * // Consider smart pointers if lifetimes are complex
+ * // auto receiverPtr = std::make_unique<$Receiver$>();
+ * // auto commandPtr = std::make_unique<$ConcreteCommand$>(receiverPtr.get());
+ * // $Invoker$ invoker;
+ * // invoker.setCommand(commandPtr.get());
+ * // invoker.executeCommand();
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_interpreter" id="GOF_Interpreter" complement="Interpreter design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <string> // Needed for std::string
+#include <map>    // Needed for std::map (Context)
+#include <memory> // Needed for std::unique_ptr
+
+/// @brief Forward declaration.
+class $AbstractExpression$;
+
+/** @typedef Context
+ * @brief Represents the context containing information global to the interpreter. */
+using Context = std::map<std::string, int>;
+
+/**
+ * @class AbstractExpression
+ * @brief Declares an abstract Interpret operation common to all nodes in the AST.
+ */
+class $AbstractExpression$ {
+public:
+    virtual ~AbstractExpression$() = default;
+    /** @brief Interprets the expression within the given context.
+     * @param context The context containing variable values.
+     * @return The result of the interpretation (e.g., an integer). */
+    virtual int interpret(const Context& context) = 0;
+};
+
+/**
+ * @class NumberExpression
+ * @brief Terminal expression representing a literal number.
+ */
+class $NumberExpression$ : public $AbstractExpression$ {
+public:
+    /** @brief Constructor. @param number The literal number value. */
+    explicit $NumberExpression$(int number); // Declaration only
+
+    /** @brief Returns the literal number.
+     * @param context The context (unused for literal numbers).
+     * @return The number value. */
+    int interpret(const Context& context) override; // Declaration only
+private:
+    /// @brief The stored number value.
+    int number_;
+};
+
+/**
+ * @class VariableExpression
+ * @brief Terminal expression representing a variable.
+ */
+class $VariableExpression$ : public $AbstractExpression$ {
+public:
+    /** @brief Constructor. @param variableName The name of the variable. */
+    explicit $VariableExpression$(const std::string& variableName); // Declaration only
+
+    /** @brief Looks up the variable's value in the context.
+     * @param context The context containing variable values.
+     * @return The value of the variable. May throw if variable not found. */
+    int interpret(const Context& context) override; // Declaration only
+private:
+    /// @brief The name of the variable.
+    std::string variableName_;
+};
+
+/**
+ * @class AddExpression
+ * @brief Non-terminal expression representing addition.
+ */
+class $AddExpression$ : public $AbstractExpression$ {
+public:
+    /** @brief Constructor taking ownership of left and right sub-expressions.
+     * @param left Unique pointer to the left operand expression.
+     * @param right Unique pointer to the right operand expression. */
+    $AddExpression$(std::unique_ptr<$AbstractExpression$> left, std::unique_ptr<$AbstractExpression$> right); // Declaration only
+    // Destructor needed if using raw pointers
+
+    /** @brief Interprets the left and right operands and returns their sum.
+     * @param context The context passed to sub-expressions.
+     * @return The sum of the interpreted sub-expressions. */
+    int interpret(const Context& context) override; // Declaration only
+private:
+    /// @brief Left operand expression.
+    std::unique_ptr<$AbstractExpression$> left_;
+    /// @brief Right operand expression.
+    std::unique_ptr<$AbstractExpression$> right_;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn $NumberExpression$::$NumberExpression$(int number) */
+$NumberExpression$::$NumberExpression$(int number) /* : number_(number) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn int $NumberExpression$::interpret(const Context& context) */
+int $NumberExpression$::interpret(const Context& context) /* override */ { /*! @brief Implementation needed. (Original: return number_;) $$ */ return 0; }
+
+/** @fn $VariableExpression$::$VariableExpression$(const std::string& variableName) */
+$VariableExpression$::$VariableExpression$(const std::string& variableName) /* : variableName_(variableName) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn int $VariableExpression$::interpret(const Context& context) */
+int $VariableExpression$::interpret(const Context& context) /* override */ { /*! @brief Implementation needed. (Original: return context.at(variableName_);) May throw. $$ */ return 0; }
+
+/** @fn $AddExpression$::$AddExpression$(std::unique_ptr<$AbstractExpression$> left, std::unique_ptr<$AbstractExpression$> right) */
+$AddExpression$::$AddExpression$(std::unique_ptr<$AbstractExpression$> left, std::unique_ptr<$AbstractExpression$> right) /* : left_(std::move(left)), right_(std::move(right)) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn int $AddExpression$::interpret(const Context& context) */
+int $AddExpression$::interpret(const Context& context) /* override */ { /*! @brief Implementation needed. (Original: return left_->interpret(context) + right_->interpret(context);) $$ */ return 0; }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * // Build Abstract Syntax Tree for: w + x
+ * auto w = std::make_unique<$VariableExpression$>("w");
+ * auto x = std::make_unique<$VariableExpression$>("x");
+ * // AddExpression takes ownership
+ * auto expression = std::make_unique<$AddExpression$>(std::move(w), std::move(x));
+ *
+ * // Provide context
+ * Context context = {{"w", 5}, {"x", 10}};
+ *
+ * // Interpret the expression
+ * int result = expression->interpret(context); // Should evaluate to 15
+ * // std::cout << "Expression (w + x) with w=5, x=10 results in: " << result << std::endl;
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_iterator" id="GOF_Iterator" complement="Iterator design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <vector> // Needed for std::vector if used
+#include <memory> // Needed for std::unique_ptr
+#include <iterator> // For std::forward_iterator_tag etc. if creating standard-compliant iterator
+
+/// @brief Forward declarations.
+template <typename T> class $Iterator$;
+template <typename T> class $Aggregate$;
+
+/** @brief Define the type of item being iterated over. */
+using ItemType = int;
+
+/**
+ * @class Iterator
+ * @brief Interface for accessing and traversing elements of an aggregate object.
+ * @tparam T The type of element being iterated over.
+ */
+template <typename T>
+class $Iterator$ {
+public:
+    virtual ~Iterator$() = default;
+    /** @brief Resets the iterator to the first element. */
+    virtual void first() = 0;
+    /** @brief Moves the iterator to the next element. */
+    virtual void next() = 0;
+    /** @brief Checks if the iteration has finished. @return True if past the last element, false otherwise. */
+    virtual bool isDone() const = 0;
+    /** @brief Gets the current element. Behavior is undefined if isDone() is true. @return The current element. */
+    virtual T currentItem() const = 0;
+};
+
+/**
+ * @class Aggregate
+ * @brief Interface for creating an Iterator object.
+ * @tparam T The type of element the aggregate holds.
+ */
+template <typename T>
+class $Aggregate$ {
+public:
+    virtual ~Aggregate$() = default;
+    /** @brief Factory method to create an iterator for this aggregate.
+     * @return A unique pointer to a new Iterator instance. */
+    virtual std::unique_ptr<$Iterator$<T>> createIterator() = 0;
+};
+
+/**
+ * @class ConcreteIterator
+ * @brief Implements the Iterator interface for a specific Aggregate (e.g., std::vector).
+ */
+class $ConcreteIterator$ : public $Iterator$<ItemType> {
+public:
+    /** @brief Constructor. @param collection The collection to iterate over. */
+    explicit $ConcreteIterator$(const std::vector<ItemType>& collection); // Declaration only
+
+    void first() override; // Declaration only
+    void next() override; // Declaration only
+    bool isDone() const override; // Declaration only
+    ItemType currentItem() const override; // Declaration only
+private:
+    /// @brief Reference to the collection being iterated.
+    const std::vector<ItemType>& collection_;
+    /// @brief Current position within the collection.
+    size_t position_;
+};
+
+/**
+ * @class ConcreteAggregate
+ * @brief Implements the Aggregate interface to return an instance of the ConcreteIterator.
+ */
+class $ConcreteAggregate$ : public $Aggregate$<ItemType> {
+public:
+    /** @brief Constructor. @param data The data to be held by the aggregate. */
+    explicit $ConcreteAggregate$(std::vector<ItemType> data); // Declaration only
+
+    /** @brief Creates a ConcreteIterator for this aggregate.
+     * @return A unique pointer to a new ConcreteIterator. */
+    std::unique_ptr<$Iterator$<ItemType>> createIterator() override; // Declaration only
+private:
+    /// @brief The collection of items.
+    std::vector<ItemType> data_;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn $ConcreteIterator$::$ConcreteIterator$(const std::vector<ItemType>& collection) */
+$ConcreteIterator$::$ConcreteIterator$(const std::vector<ItemType>& collection) /* : collection_(collection), position_(0) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteIterator$::first() */
+void $ConcreteIterator$::first() /* override */ { /*! @brief Implementation needed. (Original: position_ = 0;) $$ */ }
+/** @fn void $ConcreteIterator$::next() */
+void $ConcreteIterator$::next() /* override */ { /*! @brief Implementation needed. (Original: position_++;) $$ */ }
+/** @fn bool $ConcreteIterator$::isDone() const */
+bool $ConcreteIterator$::isDone() const /* override */ { /*! @brief Implementation needed. (Original: return position_ >= collection_.size();) $$ */ return true; }
+/** @fn ItemType $ConcreteIterator$::currentItem() const */
+ItemType $ConcreteIterator$::currentItem() const /* override */ { /*! @brief Implementation needed. (Original: return collection_[position_]; check isDone()). $$ */ return ItemType{}; }
+
+/** @fn $ConcreteAggregate$::$ConcreteAggregate$(std::vector<ItemType> data) */
+$ConcreteAggregate$::$ConcreteAggregate$(std::vector<ItemType> data) /* : data_(std::move(data)) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn std::unique_ptr<$Iterator$<ItemType>> $ConcreteAggregate$::createIterator() */
+std::unique_ptr<$Iterator$<ItemType>> $ConcreteAggregate$::createIterator() /* override */ { /*! @brief Implementation needed. (Original: return std::make_unique<$ConcreteIterator$>(data_);) $$ */ return nullptr; }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * std::vector<ItemType> numbers = {1, 2, 3, 4, 5};
+ * // Aggregate can own the data
+ * auto aggregate = std::make_unique<$ConcreteAggregate$>(numbers);
+ * // Create iterator (factory method)
+ * auto iterator = aggregate->createIterator();
+ *
+ * // Iterate using the iterator interface
+ * for (iterator->first(); !iterator->isDone(); iterator->next()) {
+ * // std::cout << iterator->currentItem() << " ";
+ * }
+ * // std::cout << std::endl;
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_mediator" id="GOF_Mediator" complement="Mediator design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <string> // Needed for std::string
+#include <vector> // If Mediator manages multiple colleagues
+#include <memory> // For smart pointers if used
+
+/// @brief Forward declarations.
+class $Mediator$;
+class $Colleague$;
+class $ConcreteColleagueA$;
+class $ConcreteColleagueB$;
+
+/**
+ * @class Mediator
+ * @brief Defines an interface for communicating with Colleague objects.
+ */
+class $Mediator$ {
+public:
+    virtual ~$Mediator$() = default;
+    /** @brief Method called by Colleagues to notify the Mediator of events.
+     * @param sender Pointer to the Colleague that sent the notification.
+     * @param event String describing the event (can be any type). */
+    virtual void notify($Colleague$* sender, const std::string& event) = 0;
+};
+
+/**
+ * @class Colleague
+ * @brief Abstract class for Colleague objects that communicate via a Mediator.
+ */
+class $Colleague$ {
+public:
+    /** @brief Constructor linking the Colleague to its Mediator.
+     * @param mediator Pointer to the Mediator instance. */
+    explicit $Colleague$($Mediator$* mediator); // Declaration only
+    virtual ~$Colleague$() = default;
+protected:
+    /// @brief Pointer to the Mediator.
+    $Mediator$* mediator_;
+};
+
+/**
+ * @class ConcreteColleagueA
+ * @brief Concrete Colleague implementation. Communicates via the Mediator.
+ */
+class $ConcreteColleagueA$ : public $Colleague$ {
+public:
+    /** @brief Constructor. @param mediator Pointer to the Mediator. */
+    explicit $ConcreteColleagueA$($Mediator$* mediator); // Declaration only
+    /** @brief Sends a message via the Mediator. @param message The message content. */
+    void send(const std::string& message); // Declaration only
+    /** @brief Receives a message (typically called by the Mediator). @param message The message content. */
+    void receive(const std::string& message); // Declaration only
+};
+
+/**
+ * @class ConcreteColleagueB
+ * @brief Concrete Colleague implementation. Communicates via the Mediator.
+ */
+class $ConcreteColleagueB$ : public $Colleague$ {
+public:
+    /** @brief Constructor. @param mediator Pointer to the Mediator. */
+    explicit $ConcreteColleagueB$($Mediator$* mediator); // Declaration only
+    /** @brief Sends a message via the Mediator. @param message The message content. */
+    void send(const std::string& message); // Declaration only
+    /** @brief Receives a message (typically called by the Mediator). @param message The message content. */
+    void receive(const std::string& message); // Declaration only
+};
+
+/**
+ * @class ConcreteMediator
+ * @brief Implements cooperative behavior by coordinating Colleague objects.
+ * @details Knows and maintains its colleagues.
+ */
+class $ConcreteMediator$ : public $Mediator$ {
+public:
+    /** @brief Registers Colleague A. @param colleagueA Pointer to the colleague instance. */
+    void setColleagueA($ConcreteColleagueA$* colleagueA); // Declaration only
+    /** @brief Registers Colleague B. @param colleagueB Pointer to the colleague instance. */
+    void setColleagueB($ConcreteColleagueB$* colleagueB); // Declaration only
+
+    /** @brief Handles notifications from Colleagues and routes communication.
+     * @param sender Pointer to the sending Colleague.
+     * @param event Description of the event. */
+    void notify($Colleague$* sender, const std::string& event) override; // Declaration only
+private:
+    /// @brief Pointer to Colleague A instance.
+    $ConcreteColleagueA$* colleagueA_ = nullptr;
+    /// @brief Pointer to Colleague B instance.
+    $ConcreteColleagueB$* colleagueB_ = nullptr;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn $Colleague$::$Colleague$($Mediator$* mediator) */
+$Colleague$::$Colleague$($Mediator$* mediator) /* : mediator_(mediator) */ { /*! @brief Implementation needed. $$ */ }
+
+/** @fn $ConcreteColleagueA$::$ConcreteColleagueA$($Mediator$* mediator) */
+$ConcreteColleagueA$::$ConcreteColleagueA$($Mediator$* mediator) /* : Colleague(mediator) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteColleagueA$::send(const std::string& message) */
+void $ConcreteColleagueA$::send(const std::string& message) { /*! @brief Implementation needed. (Original: mediator_->notify(this, message);) $$ */ }
+/** @fn void $ConcreteColleagueA$::receive(const std::string& message) */
+void $ConcreteColleagueA$::receive(const std::string& message) { /*! @brief Implementation needed. $$ */ }
+
+/** @fn $ConcreteColleagueB$::$ConcreteColleagueB$($Mediator$* mediator) */
+$ConcreteColleagueB$::$ConcreteColleagueB$($Mediator$* mediator) /* : Colleague(mediator) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteColleagueB$::send(const std::string& message) */
+void $ConcreteColleagueB$::send(const std::string& message) { /*! @brief Implementation needed. (Original: mediator_->notify(this, message);) $$ */ }
+/** @fn void $ConcreteColleagueB$::receive(const std::string& message) */
+void $ConcreteColleagueB$::receive(const std::string& message) { /*! @brief Implementation needed. $$ */ }
+
+/** @fn void $ConcreteMediator$::setColleagueA($ConcreteColleagueA$* colleagueA) */
+void $ConcreteMediator$::setColleagueA($ConcreteColleagueA$* colleagueA) { /*! @brief Implementation needed. (Original: this->colleagueA_ = colleagueA;) $$ */ }
+/** @fn void $ConcreteMediator$::setColleagueB($ConcreteColleagueB$* colleagueB) */
+void $ConcreteMediator$::setColleagueB($ConcreteColleagueB$* colleagueB) { /*! @brief Implementation needed. (Original: this->colleagueB_ = colleagueB;) $$ */ }
+/** @fn void $ConcreteMediator$::notify($Colleague$* sender, const std::string& event) */
+void $ConcreteMediator$::notify($Colleague$* sender, const std::string& event) /* override */ { /*! @brief Implementation needed. (Original: Check sender, call receive on other colleague). $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * $ConcreteMediator$ mediator;
+ * // Colleagues usually get the mediator injected
+ * $ConcreteColleagueA$ colleagueA(&mediator);
+ * $ConcreteColleagueB$ colleagueB(&mediator);
+ *
+ * // Mediator needs references to colleagues
+ * mediator.setColleagueA(&colleagueA);
+ * mediator.setColleagueB(&colleagueB);
+ *
+ * // Communication happens via the mediator
+ * colleagueA.send("Hello from A"); // -> Mediator -> colleagueB.receive()
+ * colleagueB.send("Hi from B");   // -> Mediator -> colleagueA.receive()
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_memento" id="GOF_Memento" complement="Memento design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <string> // Needed for std::string
+#include <vector> // Needed for std::vector
+#include <memory> // Needed for std::unique_ptr
+
+/// @brief Forward declarations.
+class $Memento$;
+class $Originator$;
+
+/**
+ * @class Memento
+ * @brief Stores internal state of the Originator object.
+ * @details The Memento protects against access by objects other than the originator.
+ * Its interface might be narrowed if Caretaker doesn't need access to the state.
+ */
+class $Memento$ {
+    // Friend declaration allows Originator access to private members if needed
+    friend class $Originator$;
+public:
+    // Public getter might be removed if Caretaker shouldn't inspect state
+    /** @brief Gets the stored state. @return The state stored in the Memento. */
+    std::string getState() const; // Declaration only
+
+private:
+    /** @brief Private constructor, typically called only by Originator.
+     * @param state The state to store. */
+    explicit $Memento$(const std::string& state); // Declaration only
+
+    /// @brief The state stored by the Memento.
+    std::string state_;
+};
+
+/**
+ * @class Originator
+ * @brief Creates a memento containing a snapshot of its current internal state.
+ * @details Uses the memento to restore its internal state.
+ */
+class $Originator$ {
+public:
+    /** @brief Sets the current state of the Originator. @param state The new state. */
+    void setState(const std::string& state); // Declaration only
+    /** @brief Gets the current state of the Originator. @return The current state. */
+    std::string getState() const; // Declaration only
+
+    /** @brief Saves the current state into a Memento object.
+     * @return A unique pointer to the newly created Memento. */
+    std::unique_ptr<$Memento$> saveToMemento() const; // Declaration only
+
+    /** @brief Restores the Originator's state from a Memento object.
+     * @param memento Pointer to the Memento object containing the state to restore. */
+    void restoreFromMemento(const $Memento$* memento); // Declaration only
+private:
+    /// @brief The internal state of the Originator.
+    std::string state_;
+};
+
+/**
+ * @class Caretaker
+ * @brief Is responsible for the memento's safekeeping. Never operates on or examines the contents of a memento.
+ */
+class $Caretaker$ {
+public:
+    /** @brief Adds a Memento to the history. Takes ownership.
+     * @param memento A unique pointer to the Memento to store. */
+    void addMemento(std::unique_ptr<$Memento$> memento); // Declaration only
+
+    /** @brief Retrieves a Memento from history by index.
+     * @param index The index of the desired Memento.
+     * @return A const pointer to the Memento (Caretaker retains ownership). Returns nullptr if index is invalid. */
+    const $Memento$* getMemento(size_t index) const; // Declaration only
+private:
+    /// @brief Storage for the Mementos.
+    std::vector<std::unique_ptr<$Memento$>> mementos_;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn $Memento$::$Memento$(const std::string& state) */
+$Memento$::$Memento$(const std::string& state) /* : state_(state) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn std::string $Memento$::getState() const */
+std::string $Memento$::getState() const { /*! @brief Implementation needed. (Original: return state_;) $$ */ return ""; }
+
+/** @fn void $Originator$::setState(const std::string& state) */
+void $Originator$::setState(const std::string& state) { /*! @brief Implementation needed. (Original: this->state_ = state;) $$ */ }
+/** @fn std::string $Originator$::getState() const */
+std::string $Originator$::getState() const { /*! @brief Implementation needed. (Original: return state_;) $$ */ return ""; }
+/** @fn std::unique_ptr<$Memento$> $Originator$::saveToMemento() const */
+std::unique_ptr<$Memento$> $Originator$::saveToMemento() const { /*! @brief Implementation needed. (Original: return std::unique_ptr<$Memento$>(new $Memento$(state_));) $$ */ return nullptr; }
+/** @fn void $Originator$::restoreFromMemento(const $Memento$* memento) */
+void $Originator$::restoreFromMemento(const $Memento$* memento) { /*! @brief Implementation needed. (Original: if(memento) state_ = memento->getState();) $$ */ }
+
+/** @fn void $Caretaker$::addMemento(std::unique_ptr<$Memento$> memento) */
+void $Caretaker$::addMemento(std::unique_ptr<$Memento$> memento) { /*! @brief Implementation needed. (Original: mementos_.push_back(std::move(memento));) $$ */ }
+/** @fn const $Memento$* $Caretaker$::getMemento(size_t index) const */
+const $Memento$* $Caretaker$::getMemento(size_t index) const { /*! @brief Implementation needed. (Original: Check bounds, return mementos_[index].get();) $$ */ return nullptr; }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * $Originator$ originator;
+ * $Caretaker$ caretaker;
+ *
+ * originator.setState("State #1");
+ * // std::cout << "Current State: " << originator.getState() << std::endl;
+ * caretaker.addMemento(originator.saveToMemento()); // Save State #1
+ *
+ * originator.setState("State #2");
+ * // std::cout << "Current State: " << originator.getState() << std::endl;
+ * caretaker.addMemento(originator.saveToMemento()); // Save State #2
+ *
+ * originator.setState("State #3");
+ * // std::cout << "Current State: " << originator.getState() << std::endl;
+ *
+ * // Restore previous state (State #2)
+ * const $Memento$* memento1 = caretaker.getMemento(1); // Get Memento for State #2
+ * if (memento1) {
+ * // std::cout << "Restoring to state: " << memento1->getState() << std::endl;
+ * originator.restoreFromMemento(memento1);
+ * // std::cout << "Current State after restore: " << originator.getState() << std::endl;
+ * }
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_state" id="GOF_State" complement="State design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <memory> // Needed for smart pointers if used
+
+/// @brief Forward declarations.
+class $State$;
+class $Context$;
+
+/**
+ * @class State
+ * @brief Defines an interface for encapsulating the behavior associated with a particular state of the Context.
+ */
+class $State$ {
+public:
+    virtual ~$State$() = default;
+    /** @brief Handles the request, performing behavior specific to this state.
+     * @param context Pointer to the context, allowing the state to potentially change the context's state. */
+    virtual void handle($Context$* context) = 0;
+};
+
+/**
+ * @class Context
+ * @brief Defines the interface of interest to clients. Maintains an instance of a ConcreteState subclass that defines the current state.
+ */
+class $Context$ {
+public:
+    /** @brief Constructor, potentially setting an initial state. */
+    $Context$(); // Declaration only
+    /** @brief Constructor setting an initial state.
+     * @param initialState Pointer to the initial state object (Context does not own it by default). */
+    explicit $Context$($State$* initialState); // Declaration only
+    /** @brief Destructor (manages state pointer if owned). */
+    ~$Context$(); // Declaration only
+
+    /** @brief Allows changing the state of the context.
+     * @param state Pointer to the new state object (Context does not own it by default). */
+    void setState($State$* state); // Declaration only
+
+    /** @brief Delegates the client's request to the current state object. */
+    void request(); // Declaration only
+private:
+    /// @brief Pointer to the current state object.
+    $State$* state_ = nullptr; // Non-owning pointer assumed
+    // Or: std::unique_ptr<$State$> state_; // If Context owns states
+};
+
+/**
+ * @class ConcreteStateA
+ * @brief Implements a behavior associated with a state of the Context.
+ */
+class $ConcreteStateA$ : public $State$ {
+public:
+    /** @brief Handles the request for State A. May change the Context's state.
+     * @param context Pointer to the context. */
+    void handle($Context$* context) override; // Declaration only
+};
+
+/**
+ * @class ConcreteStateB
+ * @brief Implements a behavior associated with a state of the Context.
+ */
+class $ConcreteStateB$ : public $State$ {
+public:
+    /** @brief Handles the request for State B. May change the Context's state.
+     * @param context Pointer to the context. */
+    void handle($Context$* context) override; // Declaration only
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn $Context$::$Context$() */
+$Context$::$Context$() { /*! @brief Implementation needed. $$ */ }
+/** @fn $Context$::$Context$($State$* initialState) */
+$Context$::$Context$($State$* initialState) /* : state_(initialState) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn $Context$::~$Context$() */
+$Context$::~$Context$() { /*! @brief Implementation needed (if managing state_). $$ */ }
+/** @fn void $Context$::setState($State$* state) */
+void $Context$::setState($State$* state) { /*! @brief Implementation needed. (Original: this->state_ = state;) $$ */ }
+/** @fn void $Context$::request() */
+void $Context$::request() { /*! @brief Implementation needed. (Original: if(state_) state_->handle(this);) $$ */ }
+
+/** @fn void $ConcreteStateA$::handle($Context$* context) */
+void $ConcreteStateA$::handle($Context$* context) /* override */ { /*! @brief Implementation needed. (May call context->setState(...)). $$ */ }
+/** @fn void $ConcreteStateB$::handle($Context$* context) */
+void $ConcreteStateB$::handle($Context$* context) /* override */ { /*! @brief Implementation needed. (May call context->setState(...)). $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * // States can often be singletons or managed instances
+ * $ConcreteStateA$ stateA;
+ * $ConcreteStateB$ stateB;
+ *
+ * // Context starts in an initial state
+ * $Context$ context(&stateA);
+ * // std::cout << "Context in State A:" << std::endl;
+ * context.request(); // Delegates to stateA.handle()
+ *
+ * // State transition might happen inside handle() or externally
+ * // context.setState(&stateB); // Example external transition
+ * // std::cout << "Context in State B:" << std::endl;
+ * // context.request(); // Delegates to stateB.handle()
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_strategy" id="GOF_Strategy" complement="Strategy design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <memory> // Needed for smart pointers if used
+
+/// @brief Forward declarations.
+class $Strategy$;
+
+/**
+ * @class Strategy
+ * @brief Declares an interface common to all supported algorithms.
+ * @details Context uses this interface to call the algorithm defined by a ConcreteStrategy.
+ */
+class $Strategy$ {
+public:
+    virtual ~Strategy$() = default;
+    /** @brief The algorithm interface. */
+    virtual void execute() = 0;
+};
+
+/**
+ * @class ConcreteStrategyA
+ * @brief Implements the algorithm using the Strategy interface.
+ */
+class $ConcreteStrategyA$ : public $Strategy$ {
+public:
+    /** @brief Executes algorithm A. */
+    void execute() override; // Declaration only
+};
+
+/**
+ * @class ConcreteStrategyB
+ * @brief Implements the algorithm using the Strategy interface.
+ */
+class $ConcreteStrategyB$ : public $Strategy$ {
+public:
+    /** @brief Executes algorithm B. */
+    void execute() override; // Declaration only
+};
+
+/**
+ * @class Context
+ * @brief Is configured with a ConcreteStrategy object.
+ * @details Maintains a reference to a Strategy object. May define an interface
+ * that lets Strategy access its data.
+ */
+class $Context$ {
+public:
+    /** @brief Constructor, optionally taking an initial strategy.
+     * @param strategy Initial strategy (Context typically doesn't own it). */
+    explicit $Context$($Strategy$* strategy = nullptr); // Declaration only
+    // Or using smart pointers for ownership/sharing:
+    // explicit $Context$(std::unique_ptr<$Strategy$> strategy);
+    // explicit $Context$(std::shared_ptr<$Strategy$> strategy);
+
+    /** @brief Destructor (manages pointer if owned). */
+    ~Context$(); // Declaration only
+
+    /** @brief Sets the strategy to use.
+     * @param strategy Pointer to the strategy object. */
+    void setStrategy($Strategy$* strategy); // Declaration only
+    // Or: void setStrategy(std::unique_ptr<$Strategy$> strategy);
+    // Or: void setStrategy(std::shared_ptr<$Strategy$> strategy);
+
+    /** @brief Executes the currently configured strategy. */
+    void contextInterface(); // Declaration only
+private:
+    /// @brief Pointer to the current strategy object.
+    $Strategy$* strategy_ = nullptr; // Non-owning assumed
+    // Or: std::unique_ptr<$Strategy$> strategy_; // Owning
+    // Or: std::shared_ptr<$Strategy$> strategy_; // Shared
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $ConcreteStrategyA$::execute() */
+void $ConcreteStrategyA$::execute() /* override */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteStrategyB$::execute() */
+void $ConcreteStrategyB$::execute() /* override */ { /*! @brief Implementation needed. $$ */ }
+
+/** @fn $Context$::$Context$($Strategy$* strategy) */
+$Context$::$Context$($Strategy$* strategy) /* : strategy_(strategy) */ { /*! @brief Implementation needed. $$ */ }
+/** @fn $Context$::~Context$() */
+$Context$::~Context$() { /*! @brief Implementation needed (if managing strategy_). $$ */ }
+/** @fn void $Context$::setStrategy($Strategy$* strategy) */
+void $Context$::setStrategy($Strategy$* strategy) { /*! @brief Implementation needed. (Original: this->strategy_ = strategy;) $$ */ }
+/** @fn void $Context$::contextInterface() */
+void $Context$::contextInterface() { /*! @brief Implementation needed. (Original: if(strategy_) strategy_->execute();) $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * // Strategies can often be stateless and reusable
+ * $ConcreteStrategyA$ strategyA;
+ * $ConcreteStrategyB$ strategyB;
+ *
+ * // Context uses a strategy via a pointer
+ * $Context$ context;
+ *
+ * // std::cout << "Context using Strategy A:" << std::endl;
+ * context.setStrategy(&strategyA);
+ * context.contextInterface(); // Calls strategyA.execute()
+ *
+ * // std::cout << "Context using Strategy B:" << std::endl;
+ * context.setStrategy(&strategyB);
+ * context.contextInterface(); // Calls strategyB.execute()
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_template_method" id="GOF_TemplateMethod" complement="Template Method design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+/**
+ * @class AbstractClass
+ * @brief Defines abstract primitive operations that concrete subclasses define to implement steps of an algorithm.
+ * @details Implements a template method defining the skeleton of an algorithm.
+ */
+class $AbstractClass$ {
+public:
+    virtual ~$AbstractClass$() = default;
+
+    /**
+     * @brief The template method defining the skeleton of the algorithm.
+     * @details Calls primitive operations, concrete operations, and hooks. Usually non-virtual.
+     */
+    void templateMethod(); // Declaration only
+
+protected:
+    /** @brief Primitive operation 1, must be implemented by subclasses. */
+    virtual void primitiveOperation1() = 0;
+    /** @brief Primitive operation 2, must be implemented by subclasses. */
+    virtual void primitiveOperation2() = 0;
+
+    /** @brief A concrete operation used by the template method (optional). */
+    void concreteOperation(); // Declaration only
+
+    /** @brief A hook operation that subclasses can override (optional).
+     * @details Provides a default (often empty) implementation. */
+    virtual void hook(); // Declaration only
+};
+
+/**
+ * @class ConcreteClassA
+ * @brief Implements the primitive operations to carry out subclass-specific steps of the algorithm.
+ */
+class $ConcreteClassA$ : public $AbstractClass$ {
+protected:
+    void primitiveOperation1() override; // Declaration only
+    void primitiveOperation2() override; // Declaration only
+    // Optionally override hook():
+    // void hook() override;
+};
+
+/**
+ * @class ConcreteClassB
+ * @brief Implements the primitive operations differently.
+ */
+class $ConcreteClassB$ : public $AbstractClass$ {
+protected:
+    void primitiveOperation1() override; // Declaration only
+    void primitiveOperation2() override; // Declaration only
+    /** @brief Overrides the hook operation. */
+    void hook() override; // Declaration only
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $AbstractClass$::templateMethod() */
+void $AbstractClass$::templateMethod() { /*! @brief Implementation needed. (Original: Call primitive1, primitive2, concrete, hook). $$ */ }
+/** @fn void $AbstractClass$::concreteOperation() */
+void $AbstractClass$::concreteOperation() { /*! @brief Implementation needed. $$ */ }
+/** @fn void $AbstractClass$::hook() */
+void $AbstractClass$::hook() { /*! @brief Default empty implementation. $$ */ }
+
+/** @fn void $ConcreteClassA$::primitiveOperation1() */
+void $ConcreteClassA$::primitiveOperation1() /* override */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteClassA$::primitiveOperation2() */
+void $ConcreteClassA$::primitiveOperation2() /* override */ { /*! @brief Implementation needed. $$ */ }
+// void $ConcreteClassA$::hook() /* override */ { /*! @brief Optional implementation. $$ */ }
+
+/** @fn void $ConcreteClassB$::primitiveOperation1() */
+void $ConcreteClassB$::primitiveOperation1() /* override */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteClassB$::primitiveOperation2() */
+void $ConcreteClassB$::primitiveOperation2() /* override */ { /*! @brief Implementation needed. $$ */ }
+/** @fn void $ConcreteClassB$::hook() */
+void $ConcreteClassB$::hook() /* override */ { /*! @brief Implementation needed. $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * // std::cout << "Using ConcreteClassA:" << std::endl;
+ * $ConcreteClassA$ classA;
+ * classA.templateMethod(); // Executes the algorithm using A's implementations
+ *
+ * // std::cout << "\nUsing ConcreteClassB:" << std::endl;
+ * $ConcreteClassB$ classB;
+ * classB.templateMethod(); // Executes the algorithm using B's implementations + hook
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+
+    <snippet group="C++" trigger="gof_visitor" id="GOF_Visitor" complement="Visitor design pattern (Declarations Only + Doxygen)">
+        <![CDATA[
+#include <vector> // Needed for std::vector
+#include <memory> // Needed for std::shared_ptr
+
+/// @brief Forward declarations for double dispatch.
+class $ConcreteElementA$;
+class $ConcreteElementB$;
+class $Visitor$;
+class $Element$;
+
+/**
+ * @class Visitor
+ * @brief Declares a Visit operation for each class of ConcreteElement in the object structure.
+ */
+class $Visitor$ {
+public:
+    virtual ~Visitor$() = default;
+    /** @brief Visit operation for ConcreteElementA.
+     * @param element Pointer to the ConcreteElementA being visited. */
+    virtual void visitConcreteElementA($ConcreteElementA$* element) = 0;
+    /** @brief Visit operation for ConcreteElementB.
+     * @param element Pointer to the ConcreteElementB being visited. */
+    virtual void visitConcreteElementB($ConcreteElementB$* element) = 0;
+};
+
+/**
+ * @class Element
+ * @brief Defines an Accept operation that takes a visitor as an argument.
+ */
+class $Element$ {
+public:
+    virtual ~Element$() = default;
+    /** @brief Accepts a visitor. Implemented using double dispatch.
+     * @param visitor Pointer to the visitor performing the operation. */
+    virtual void accept($Visitor$* visitor) = 0;
+};
+
+/**
+ * @class ConcreteElementA
+ * @brief Implements an Accept operation that takes a visitor as an argument.
+ */
+class $ConcreteElementA$ : public $Element$ {
+public:
+    /** @brief Accepts the visitor by calling the appropriate visit method.
+     * @param visitor Pointer to the visitor. */
+    void accept($Visitor$* visitor) override; // Declaration only
+    /** @brief Example operation specific to ConcreteElementA. */
+    void operationA(); // Declaration only
+};
+
+/**
+ * @class ConcreteElementB
+ * @brief Implements an Accept operation that takes a visitor as an argument.
+ */
+class $ConcreteElementB$ : public $Element$ {
+public:
+    /** @brief Accepts the visitor by calling the appropriate visit method.
+     * @param visitor Pointer to the visitor. */
+    void accept($Visitor$* visitor) override; // Declaration only
+    /** @brief Example operation specific to ConcreteElementB. */
+    void operationB(); // Declaration only
+};
+
+/**
+ * @class ConcreteVisitor
+ * @brief Implements each operation declared by Visitor. Each operation implements a fragment of the algorithm defined for the corresponding class of object in the structure.
+ */
+class $ConcreteVisitor$ : public $Visitor$ {
+public:
+    /** @brief Implements the operation for ConcreteElementA.
+     * @param element Pointer to the ConcreteElementA being visited. */
+    void visitConcreteElementA($ConcreteElementA$* element) override; // Declaration only
+    /** @brief Implements the operation for ConcreteElementB.
+     * @param element Pointer to the ConcreteElementB being visited. */
+    void visitConcreteElementB($ConcreteElementB$* element) override; // Declaration only
+};
+
+/**
+ * @class ObjectStructure
+ * @brief Can enumerate its elements. May provide a high-level interface to allow the visitor to visit its elements.
+ */
+class $ObjectStructure$ {
+public:
+    /** @brief Attaches an element to the structure.
+     * @param element Shared pointer to the element to attach. */
+    void attach(std::shared_ptr<$Element$> element); // Declaration only
+    /** @brief Detaches an element from the structure.
+     * @param element Shared pointer to the element to detach. */
+    void detach(std::shared_ptr<$Element$> element); // Declaration only
+    /** @brief Accepts a visitor, allowing it to traverse the elements.
+     * @param visitor Pointer to the visitor. */
+    void acceptVisitor($Visitor$* visitor); // Declaration only
+private:
+    /// @brief Collection of elements.
+    std::vector<std::shared_ptr<$Element$>> elements_;
+};
+
+// --- Implementation (Example, expected in .cpp) ---
+
+/** @fn void $ConcreteElementA$::accept($Visitor$* visitor) */
+void $ConcreteElementA$::accept($Visitor$* visitor) /* override */ { /*! @brief Implementation needed. (Original: visitor->visitConcreteElementA(this);) $$ */ }
+/** @fn void $ConcreteElementA$::operationA() */
+void $ConcreteElementA$::operationA() { /*! @brief Implementation needed. $$ */ }
+
+/** @fn void $ConcreteElementB$::accept($Visitor$* visitor) */
+void $ConcreteElementB$::accept($Visitor$* visitor) /* override */ { /*! @brief Implementation needed. (Original: visitor->visitConcreteElementB(this);) $$ */ }
+/** @fn void $ConcreteElementB$::operationB() */
+void $ConcreteElementB$::operationB() { /*! @brief Implementation needed. $$ */ }
+
+/** @fn void $ConcreteVisitor$::visitConcreteElementA($ConcreteElementA$* element) */
+void $ConcreteVisitor$::visitConcreteElementA($ConcreteElementA$* element) /* override */ { /*! @brief Implementation needed. (Original: element->operationA();) $$ */ }
+/** @fn void $ConcreteVisitor$::visitConcreteElementB($ConcreteElementB$* element) */
+void $ConcreteVisitor$::visitConcreteElementB($ConcreteElementB$* element) /* override */ { /*! @brief Implementation needed. (Original: element->operationB();) $$ */ }
+
+/** @fn void $ObjectStructure$::attach(std::shared_ptr<$Element$> element) */
+void $ObjectStructure$::attach(std::shared_ptr<$Element$> element) { /*! @brief Implementation needed. (Original: elements_.push_back(element);) $$ */ }
+/** @fn void $ObjectStructure$::detach(std::shared_ptr<$Element$> element) */
+void $ObjectStructure$::detach(std::shared_ptr<$Element$> element) { /*! @brief Implementation needed. (Original: find and erase element). $$ */ }
+/** @fn void $ObjectStructure$::acceptVisitor($Visitor$* visitor) */
+void $ObjectStructure$::acceptVisitor($Visitor$* visitor) { /*! @brief Implementation needed. (Original: iterate elements_ and call element->accept(visitor);). $$ */ }
+
+
+/** @example Example usage
+ * @code
+ * #include <iostream> // For output
+ *
+ * int main() {
+ * $ObjectStructure$ objectStructure;
+ * // Use smart pointers for elements
+ * auto elementA = std::make_shared<$ConcreteElementA$>();
+ * auto elementB = std::make_shared<$ConcreteElementB$>();
+ *
+ * objectStructure.attach(elementA);
+ * objectStructure.attach(elementB);
+ *
+ * // Visitor can be stack allocated if stateless
+ * $ConcreteVisitor$ visitor;
+ * // std::cout << "Accepting visitor:" << std::endl;
+ * objectStructure.acceptVisitor(&visitor); // Visitor visits each element
+ *
+ * return 0;
+ * }
+ * @endcode
+ */
+        ]]>
+    </snippet>
+       <snippet group="C++" trigger="docs" id="docs" complement="Doxygen documentation example for Fibonacci">
+        <![CDATA[
+/**
+ * @brief Calculates the n-th Fibonacci number using memoization.
+ *
+ * @details This function recursively calculates the Fibonacci number for a given index n.
+ * It uses memoization (caching) to store already computed values and avoid
+ * redundant calculations, significantly improving performance for large n
+ * compared to naive recursion.
+ * Base cases: F(0) = 0, F(1) = 1.
+ *
+ * @param n The index of the Fibonacci number to calculate (non-negative integer).
+ * @param memo A map (e.g., `std::map<int, long long>`) to store already computed
+ * Fibonacci numbers. Key is the index n, value is F(n). Passed by reference
+ * and modified by the function to cache results.
+ *
+ * @return The value of the n-th Fibonacci number (`long long`).
+ *
+ * @throw std::invalid_argument If n is negative.
+ * @throw std::overflow_error If the result of adding F(n-1) + F(n-2) exceeds
+ * the maximum value for `long long`. (Theoretical).
+ *
+ * @note Memoization makes this recursive implementation efficient, approaching
+ * O(n) complexity. The `memo` map should be initialized (at least empty)
+ * before the first call for a specific sequence of calculations.
+ *
+ * @warning For very large values of n (system-dependent), a stack overflow might
+ * occur due to deep recursion, even with memoization (though at much larger n
+ * than without it). The result might exceed the maximum value of `long long`
+ * (typically for n > ~92).
+ *
+ * @par Algorithm (Pseudocode):
+ * @code
+ * 1. IF n < 0 THEN THROW invalid_argument.
+ * 2. IF n == 0 OR n == 1 THEN RETURN n.
+ * 3. CHECK IF n exists as a key in `memo`.
+ * 4. IF value found in `memo` THEN RETURN it.
+ * 5. IF value not found THEN:
+ * a. SET F_n_minus_1 = calculateFibonacci(n - 1, memo).
+ * b. SET F_n_minus_2 = calculateFibonacci(n - 2, memo).
+ * c. SET result = F_n_minus_1 + F_n_minus_2. (Check for overflow!)
+ * d. STORE result in `memo` with key n.
+ * e. RETURN result.
+ * @endcode
+ *
+ * @par Usage Example:
+ * @code
+ * #include <iostream>
+ * #include <map>
+ * // ... (calculateFibonacci function definition here) ...
+ * std::map<int, long long> fib_cache;
+ * try { std::cout << "Fib(10) = " << calculateFibonacci(10, fib_cache); } // Expected: 55
+ * catch (const std::exception& e) { std::cerr << "Error: " << e.what(); }
+ * @endcode
+ *
+ * @par Test Example (Google Test):
+ * @code{.cpp}
+ * // Requires <gtest/gtest.h>, <map>, and calculateFibonacci definition
+ * TEST(FibonacciMemoized, HandlesSmallValues) {
+ * std::map<int, long long> cache; // New cache for each test
+ * EXPECT_EQ(calculateFibonacci(0, cache), 0);
+ * EXPECT_EQ(calculateFibonacci(1, cache), 1);
+ * EXPECT_EQ(calculateFibonacci(10, cache), 55);
+ * }
+ * @endcode
+ *
+ * @par Benchmark Example (Google Benchmark):
+ * @code{.cpp}
+ * // Requires <benchmark/benchmark.h>, <map>, and calculateFibonacci definition
+ * static void BM_FibonacciMemoized(benchmark::State& state) {
+ * std::map<int, long long> cache; int n = state.range(0);
+ * for (auto _ : state) { benchmark::DoNotOptimize(calculateFibonacci(n, cache)); }
+ * }
+ * BENCHMARK(BM_FibonacciMemoized)->Arg(20)->Arg(40); // Run with BENCHMARK_MAIN()
+ * @endcode
+ *
+ * @par Mathematical Model (Binet's Formula):
+ * The closed-form solution for Fibonacci numbers:
+ * @f[
+ * F_n = \frac{\phi^n - \psi^n}{\sqrt{5}}
+ * @f]
+ * where @f$ \phi = \frac{1 + \sqrt{5}}{2} @f$ (the golden ratio) and @f$ \psi = \frac{1 - \sqrt{5}}{2} @f$.
+ *
+ * @par Statistics and Complexity:
+ * - **Time Complexity:** O(n). Each subproblem F(k) is computed only once.
+ * - **Space Complexity:** O(n) for storing the cache (`memo`) and O(n) for the recursion call stack.
+ * - **Cyclomatic Complexity:** Low (around 4-6).
+ *
+ * @see https://en.wikipedia.org/wiki/Fibonacci_number (English)
+ * @see https://ru.wikipedia.org/wiki/Числа_Фибоначчи (Russian)
+ * @ref calculateFibonacciIterative "Iterative implementation (if available)"
+ *
+ * @author Igors Volohovs
+ * @date 2024-08-01
+ * @version 1.3 (Translated to English, updated author/usage/pseudocode)
+ *
+ * @todo Check and add explicit handling for `long long` overflow.
+ * @bug Potential `long long` overflow for n > ~92 is not explicitly handled.
+ *
+ */
+// long long calculateFibonacci(int n, std::map<int, long long>& memo); // Example function signature
+$$ // Placeholder for cursor position after insertion
+        ]]>
+    </snippet>
+</snippets>
