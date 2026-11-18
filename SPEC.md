@@ -5,6 +5,27 @@ requirement states what the files do now, with the line it comes from. It is
 not a statement of what they ought to do; gaps are in section 9.
 Documentation hub: [docs/README.md](docs/README.md).
 
+<!-- jira-sync:start -->
+Jira: KAN-92
+
+## Tasks
+
+This list is one ticket in Jira project KAN, [KAN-92](https://igorsvolohovs.atlassian.net/browse/KAN-92). Each line is a checkbox there: tick it in Jira and the sync ticks it here; add a checkbox there and it is appended here. Done items are the features described in section 3; open items are what the project declares but the code does not do yet.
+
+- [x] Installation and Qt Creator integration (section 3.1) <!-- spec-installation-and-qt-creator-integration -->
+- [x] Scripts (section 3.2) <!-- spec-scripts -->
+- [x] Repository tooling (section 3.3) <!-- spec-repository-tooling -->
+- [ ] `recipe.ps1` verbs `build`, `install`, `uninstall`, `run`, `publish` are (declared, not implemented) <!-- spec-recipe-ps1-verbs-build-install-uninstall-run-publi -->
+- [ ] `$RunArgs` is declared and used nowhere (`recipe.ps1:5-6`). (declared, not implemented) <!-- spec-runargs-is-declared-and-used-nowhere-recipe-ps1-5- -->
+- [ ] The CI steps for an app or library - installer build and install/uninstall (declared, not implemented) <!-- spec-the-ci-steps-for-an-app-or-library-installer-build -->
+- [ ] `.claude/pytest.ini:2` exists "for the scripts this repository carries" and (declared, not implemented) <!-- spec-claude-pytest-ini-2-exists-for-the-scripts-this-re -->
+- [ ] Commit `3cf4ff0` is titled "pin ruff and pytest"; (declared, not implemented) <!-- spec-commit-3cf4ff0-is-titled-pin-ruff-and-pytest -->
+- [ ] The gRPC server and client examples are written commented out (declared, not implemented) <!-- spec-the-grpc-server-and-client-examples-are-written-co -->
+- [ ] `protobuf.sh` prints `protobuf_generate_grpc_cpp(...)` as CMake integration (declared, not implemented) <!-- spec-protobuf-sh-prints-protobufgenerategrpccpp-as-cmak -->
+- [ ] Manual tests: (declared, not implemented) <!-- spec-manual-tests -->
+
+<!-- jira-sync:end -->
+
 ## 1. Purpose and scope
 
 The repository provides Qt Creator add-ons for C++ CMake projects on Linux:
